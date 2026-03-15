@@ -1,0 +1,42 @@
+
+CREATE TABLE Books (
+    book_id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    description TEXT,
+    price DECIMAL(10, 2) CHECK (price >= 0),
+    publish_date DATE NOT NULL,
+    in_stock BOOLEAN DEFAULT TRUE
+);
+
+
+ALTER TABLE Books ADD COLUMN publisher VARCHAR(255);
+
+
+ALTER TABLE Books DROP COLUMN description;
+
+
+ALTER TABLE Books RENAME COLUMN in_stock TO available;
+
+
+
+
+SELECT c.first_name, c.last_name, SUM(p.amount) AS total_payments
+FROM customer c
+JOIN payment p ON c.customer_id = p.customer_id
+GROUP BY c.customer_id, c.first_name, c.last_name;
+
+
+
+SELECT a.first_name, a.last_name
+FROM actor a
+JOIN film_actor fa ON a.actor_id = fa.actor_id
+WHERE fa.film_id = 12 AND a.last_name LIKE '%e';
+
+
+
+
+SELECT title, length
+FROM film
+WHERE length BETWEEN 90 AND 120
+ORDER BY length ASC;
